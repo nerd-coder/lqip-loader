@@ -1,0 +1,32 @@
+{
+  "name": "@nerd-coder/lqip-loader",
+  "version": "0.1.0",
+  "description": "Low Quality Image Placeholders (LQIP) loader for webpack",
+  "main": "src/loader.js",
+  "scripts": {
+    "release": "release-it",
+    "test": "jest"
+  },
+  "author": "Toan",
+  "license": "MIT",
+  "dependencies": {
+    "loader-utils": "^1.1.0",
+    "sharp": "^0.23.3"
+  },
+  "peerDependencies": {
+    "file-loader": "*"
+  },
+  "devDependencies": {
+    "babel-jest": "^24.9.0",
+    "babel-preset-env": "^1.7.0",
+    "eslint": "^6.7.1",
+    "file-loader": "^5.0.2",
+    "jest": "^24.9.0",
+    "memory-fs": "^0.5.0",
+    "node-fetch": "^2.6.0",
+    "release-it": "*",
+    "unsplash-js": "^6.0.0",
+    "webpack": "^4.41.2",
+    "webpack-cli": "^3.3.10"
+  }
+}

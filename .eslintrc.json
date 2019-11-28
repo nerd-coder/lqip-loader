@@ -1,0 +1,16 @@
+{
+  "env": {
+    "commonjs": true,
+    "es6": true,
+    "node": true
+  },
+  "extends": "eslint:recommended",
+  "parserOptions": {
+    "ecmaVersion": 2018
+  },
+  "rules": {
+    "prefer-const": "warn",
+    "no-var": "warn"
+  },
+  "root": true
+}
