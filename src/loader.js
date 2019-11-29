@@ -10,13 +10,24 @@ const SUPPORTED_MIMES = {
 async function generateLowQualityImage(
   path,
   source,
-  { srcKey = 'src', previewKey = 'preview', ratioKey = 'ratio' }
+  {
+    srcKey = 'src',
+    previewKey = 'preview',
+    ratioKey = 'ratio',
+    resizeOptions = null,
+  }
 ) {
   const img = sharp(path)
   const meta = await img.metadata()
   const mimeType = SUPPORTED_MIMES[meta.format]
   if (!mimeType) throw new Error(`Unsupported format "${meta.format}"`)
-  const lowImg = await img.resize(10).toBuffer()
+  const lowImg = await img
+    .resize(
+      meta.width < meta.height ? meta.width : null,
+      meta.height < meta.width ? meta.height : null,
+      { ...resizeOptions }
+    )
+    .toBuffer()
 
   return `module.exports = {
     ${srcKey}: ${source},
