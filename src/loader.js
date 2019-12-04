@@ -16,8 +16,8 @@ module.exports = async function(content, map, meta) {
   const imgMeta = await img.metadata()
   const lowImg = await img
     .resize(
-      imgMeta.width < imgMeta.height ? imgMeta.width : null,
-      imgMeta.height < imgMeta.width ? imgMeta.height : null,
+      imgMeta.width < imgMeta.height ? 10 : null,
+      imgMeta.height < imgMeta.width ? 10 : null,
       { ...resizeOptions }
     )
     .toBuffer()
