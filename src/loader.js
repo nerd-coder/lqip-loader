@@ -1,65 +1,43 @@
 const sharp = require('sharp')
 const loaderUtils = require('loader-utils')
 
-const SUPPORTED_MIMES = {
-  jpeg: 'image/jpeg',
-  jpg: 'image/jpeg',
-  png: 'image/png',
-}
-
-async function generateLowQualityImage(
-  path,
-  source,
-  {
+module.exports.raw = true
+module.exports = async function(content, map, meta) {
+  this.cacheable()
+  const callback = this.async()
+  const {
     srcKey = 'src',
     previewKey = 'preview',
     ratioKey = 'ratio',
     resizeOptions = null,
-  }
-) {
-  const img = sharp(path)
-  const meta = await img.metadata()
-  const mimeType = SUPPORTED_MIMES[meta.format]
-  if (!mimeType) throw new Error(`Unsupported format "${meta.format}"`)
+  } = loaderUtils.getOptions(this) || {}
+
+  const img = sharp(this.resourcePath)
+  const imgMeta = await img.metadata()
   const lowImg = await img
     .resize(
-      meta.width < meta.height ? meta.width : null,
-      meta.height < meta.width ? meta.height : null,
+      imgMeta.width < imgMeta.height ? imgMeta.width : null,
+      imgMeta.height < imgMeta.width ? imgMeta.height : null,
       { ...resizeOptions }
     )
     .toBuffer()
 
-  return `module.exports = {
-    ${srcKey}: ${source},
-    ${ratioKey}: ${meta.width / meta.height},
-    ${previewKey}: 'data:${mimeType};base64,${lowImg.toString('base64')}',
-  }`
-}
+  const srcPath = loaderUtils.interpolateName(this, 'img/[hash:7].[ext]', {
+    content: content,
+  })
+  const lowPath = loaderUtils.interpolateName(this, 'img/lqip-[hash:7].[ext]', {
+    content: lowImg,
+  })
 
-module.exports.raw = true
-module.exports = function(contentBuffer) {
-  this.cacheable()
-  const callback = this.async()
-  const options = loaderUtils.getOptions(this) || {}
-  const urlRegex = /^(module\.exports =|export default) "data:(.*)base64,(.*)/
-  const fileRegex = /^(module\.exports =|export default) (.*)/
-  let content = contentBuffer.toString('utf8')
+  this.emitFile(srcPath, content)
+  this.emitFile(lowPath, lowImg)
 
-  const isUrlExport = urlRegex.test(content)
-  const isFileExport = fileRegex.test(content)
-  let source = ''
-
-  if (isUrlExport) {
-    source = content.match(fileRegex)[2]
-  } else {
-    if (!isFileExport) {
-      const fileLoader = require('file-loader')
-      content = fileLoader.call(this, content)
-    }
-    source = content.match(/^(module\.exports =|export default) (.*);/)[2]
+  const result = `module.exports = {
+    ${srcKey}: __webpack_public_path__ + ${JSON.stringify(srcPath)},
+    ${ratioKey}: ${imgMeta.width / imgMeta.height},
+    ${previewKey}: __webpack_public_path__ + ${JSON.stringify(lowPath)},
   }
+  `
 
-  generateLowQualityImage(this.resourcePath, source, options)
-    .then(z => callback(null, z))
-    .catch(callback)
+  callback(null, result, map, meta)
 }
