@@ -1,6 +1,6 @@
 {
   "name": "@nerd-coder/lqip-loader",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "description": "Low Quality Image Placeholders (LQIP) loader for webpack",
   "main": "src/loader.js",
   "scripts": {
