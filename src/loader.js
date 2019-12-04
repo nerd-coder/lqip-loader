@@ -1,8 +1,7 @@
 const sharp = require('sharp')
 const loaderUtils = require('loader-utils')
 
-module.exports.raw = true
-module.exports = async function(content, map, meta) {
+module.exports = async function(_, map, meta) {
   this.cacheable()
   const callback = this.async()
   const {
@@ -14,7 +13,9 @@ module.exports = async function(content, map, meta) {
 
   const img = sharp(this.resourcePath)
   const imgMeta = await img.metadata()
+  const orgImg = await img.clone().toBuffer()
   const lowImg = await img
+    .clone()
     .resize(
       imgMeta.width < imgMeta.height ? 10 : null,
       imgMeta.height < imgMeta.width ? 10 : null,
@@ -23,13 +24,15 @@ module.exports = async function(content, map, meta) {
     .toBuffer()
 
   const srcPath = loaderUtils.interpolateName(this, 'img/[hash:7].[ext]', {
-    content: content,
+    content: orgImg,
+    context: this.rootContext,
   })
   const lowPath = loaderUtils.interpolateName(this, 'img/lqip-[hash:7].[ext]', {
     content: lowImg,
+    context: this.rootContext,
   })
 
-  this.emitFile(srcPath, content)
+  this.emitFile(srcPath, orgImg)
   this.emitFile(lowPath, lowImg)
 
   const result = `module.exports = {
