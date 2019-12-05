@@ -6,7 +6,7 @@ export default fixture => {
   const compiler = webpack({
     context: __dirname,
     entry: `./${fixture}`,
-    output: { path: path.resolve(__dirname), filename: 'bundle.js' },
+    output: { path: path.resolve(__dirname, 'dist'), filename: 'bundle.js' },
     module: {
       rules: [
         {
