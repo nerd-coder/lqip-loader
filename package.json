@@ -10,19 +10,19 @@
   "author": "Toan",
   "license": "MIT",
   "dependencies": {
-    "loader-utils": "^1.1.0",
-    "sharp": "^0.23.3"
+    "loader-utils": "^1.2.3",
+    "sharp": "^0.23.4"
   },
   "devDependencies": {
     "babel-jest": "^24.9.0",
     "babel-preset-env": "^1.7.0",
-    "eslint": "^6.7.1",
+    "eslint": "^6.7.2",
     "jest": "^24.9.0",
     "memory-fs": "^0.5.0",
     "node-fetch": "^2.6.0",
     "release-it": "*",
     "unsplash-js": "^6.0.0",
-    "webpack": "^4.41.2",
+    "webpack": "^4.41.3",
     "webpack-cli": "^3.3.10"
   }
 }
