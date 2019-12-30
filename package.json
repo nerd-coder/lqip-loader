@@ -17,13 +17,13 @@
     "@release-it/conventional-changelog": "^1.1.0",
     "babel-jest": "^24.9.0",
     "babel-preset-env": "^1.7.0",
-    "eslint": "^6.7.2",
+    "eslint": "^6.8.0",
     "jest": "^24.9.0",
     "memory-fs": "^0.5.0",
     "node-fetch": "^2.6.0",
     "release-it": "*",
     "unsplash-js": "^6.0.0",
-    "webpack": "^4.41.3",
+    "webpack": "^4.41.5",
     "webpack-cli": "^3.3.10"
   },
   "release-it": {
