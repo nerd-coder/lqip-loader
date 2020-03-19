@@ -1,3 +1,5 @@
+## [0.3.5](https://github.com/nerd-coder/lqip-loader/compare/0.3.4...0.3.5) (2020-03-19)
+
 ## [0.3.4](https://github.com/nerd-coder/lqip-loader/compare/0.3.3...0.3.4) (2019-12-17)
 
 
