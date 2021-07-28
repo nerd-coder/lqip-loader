@@ -1,7 +1,7 @@
 const sharp = require('sharp')
 const loaderUtils = require('loader-utils')
 
-module.exports = async function(_, map, meta) {
+module.exports = async function (_, map, meta) {
   this.cacheable()
   const callback = this.async()
   const {

@@ -3,8 +3,9 @@
   "version": "0.3.6",
   "description": "Low Quality Image Placeholders (LQIP) loader for webpack",
   "main": "src/loader.js",
+  "repository": "github:nerd-coder/lqip-loader",
   "scripts": {
-    "release": "release-it"
+    "release": "release-it patch --ci"
   },
   "author": "Toan",
   "license": "MIT",
@@ -13,16 +14,13 @@
     "sharp": "^0.26.3"
   },
   "devDependencies": {
-    "@release-it/conventional-changelog": "^2.0.0",
     "eslint": "^7.13.0",
-    "release-it": "^14.2.1"
+    "release-it": "*"
   },
-  "release-it": {
-    "plugins": {
-      "@release-it/conventional-changelog": {
-        "preset": "angular",
-        "infile": "CHANGELOG.md"
-      }
-    }
+  "prettier": {
+    "arrowParens": "avoid",
+    "semi": false,
+    "singleQuote": true,
+    "trailingComma": "es5"
   }
 }
