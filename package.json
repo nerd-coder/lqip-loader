@@ -11,7 +11,7 @@
   "license": "MIT",
   "dependencies": {
     "loader-utils": "^2.0.0",
-    "sharp": "^0.26.3"
+    "sharp": "^0.30.5"
   },
   "devDependencies": {
     "eslint": "^7.13.0",
